@@ -1,0 +1,66 @@
+IDE Extensions:
+Ansible language support by Red Hat
+get_url module
+
+
+ansible-galaxy install geerlingguy.mysql
+
+underneath roles:
+roles:
+- geerlingguy.mysql
+  become: yes
+  vars:
+    mysql_user_name: db-user
+
+
+```yml
+- name: install httpd package
+  dnf:
+    name:
+      - httpd
+      - php
+    state: latest
+  when: ansible_distribution == "CentOS"
+- name: start and enable httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  when: ansible_distribution == "CentOS"
+```
+
+selinux
+getenforce
+:enforcing
+setenforce 0
+: permissive
+setenforce 1
+enforcing
+# let's create an ec2 instance from AWS
+# type ansible-doc -l | grep ec2 to figure out which module is used to create ec2
+ansible-doc -l | grep ec2
+ec2_instance Create & manage EC2 instances
+ansible-doc ec2_instance 
+pip3 install boto botocore
+python3 -m pip install --user --upgrade pip
+python3 -m pip install ansible boto3 botocore
+
+sudo yum install -y python3
+sudo pip3 install boto3
+ansible-playbook instance.yml
+vi create_ec2.yml
+```yml
+---
+- name: create ec2
+  hosts: localhost
+  become: true
+  tasks:
+    - name: create ec2
+      ec2_instance:
+        name: "ansible_ec2"
+        security_group: default
+        key_name: "firstkey.pem"
+        instance_type: t2.micro
+        image_id: ami-090fa75af13c156b4
+        tags:
+          environment: "web"
