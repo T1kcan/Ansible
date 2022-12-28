@@ -1,0 +1,35 @@
+[Assignment 1] Ansible - Your First Task
+Write a task to create the directory ‘/tmp/new_directory’
+- name: Create a new directory
+  file:
+    path: "/tmp/new_directory"
+    state: directory
+    
+[Assignment 2] Update and upgrade APT packages task
+ - name: "update and upgrade apt packages."
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+ 
+[Assignment 3] Your First Playbook
+ 1. vi first_playbook.yml
+ - name: Install git and create a file
+  hosts: some_remote_host
+  tasks:
+    - name: Install git
+      package:
+        name: git
+        state: present
+      become: yes
+    - name: Create the file /tmp/some_file
+      file:
+        path: '/tmp/some_file'
+        state: touch
+        
+2. Edit the inventory file: vi /etc/ansible/hosts   
+[some_remote_host]
+some.remoted.host.com
+
+3. Run the playbook
+ansible-playbook first_playbook.yml
